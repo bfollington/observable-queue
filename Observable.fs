@@ -26,6 +26,7 @@ type Subject<'T>() =
         then iter (fun observer -> observer.OnNext(value))
 
     let remove observer () = observers.Remove observer |> ignore
+
     member x.Next value = lock sync <| next value
     member x.Error ex = lock sync <| onError ex
     member x.Completed() = lock sync <| onCompleted
